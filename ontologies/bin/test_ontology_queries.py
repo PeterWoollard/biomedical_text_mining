@@ -10,14 +10,18 @@ import ontology_queries
 #curl -L 'http://www.ebi.ac.uk/ols/api/search?q={liver}&queryFields={label}&ontology={uberon}&exact=true' -i -H 'Accept: application/json' 
 
 
-ontology='uberon'
-term='liver'
-matches = ontology_queries.exactMatch(ontology,term)
-ic(len(matches))
-ic(json.dumps(matches, indent=4, sort_keys=True))
-#ic(data)
-#print(data)
 
-matches = ontology_queries.anyMatch(ontology,term)
-ic(len(matches))
-ic(json.dumps(matches, indent=4, sort_keys=True))
+
+def test_exactMatch():
+    ontology='uberon'
+    term='liver'
+    hits = ontology_queries.exactMatch(ontology,term)
+    assert len(hits) == 1
+
+
+def test_anyMatch():
+    ontology='uberon'
+    term='liver'
+    hits = ontology_queries.anyMatch(ontology,term)
+    assert len(hits) >= 1
+
